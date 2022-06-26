@@ -7,3 +7,13 @@ export const createJWT = (
 ) => {
   return jwt.sign(payload, key, { expiresIn });
 };
+
+export const verifyJWT = async (token: string, key: string) => {
+  try {
+    const decoded = await jwt.verify(token, key);
+
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+};

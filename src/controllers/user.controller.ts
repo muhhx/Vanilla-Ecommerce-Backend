@@ -4,7 +4,7 @@ import { createUser } from "../db/createDatabase";
 import { encryptPassword } from "../utils/bcrypt";
 
 async function handleCreateUser(req: Request, res: Response) {
-  const { name, email, password } = req.body;
+  const { name, email, password, passwordConfirmation } = req.body;
 
   try {
     if (!password || !name || !email) {
@@ -19,6 +19,10 @@ async function handleCreateUser(req: Request, res: Response) {
     const passwordRejex = config.get<RegExp>("passwordRejex");
     if (!passwordRejex.test(password)) {
       return res.status(400).json({ message: "Informe uma senha válida." });
+    }
+
+    if (password !== passwordConfirmation) {
+      return res.status(400).json({ message: "As senhas devem ser iguais." });
     }
 
     const hashedPassword = await encryptPassword(String(password));

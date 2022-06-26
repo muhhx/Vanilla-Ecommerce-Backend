@@ -1,7 +1,12 @@
-import sessionController from "./controllers/session.controller";
+import { Express } from "express";
+import {
+  handleCreateSession,
+  handleDeleteSession,
+  handleRefreshSession,
+  handleVerifySession,
+} from "./controllers/session.controller";
 import userController from "./controllers/user.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
-import { Express } from "express";
 
 const routes = (app: Express) => {
   //Session:
@@ -10,27 +15,11 @@ const routes = (app: Express) => {
   //Verify Session (Verificar sessão)
   //Refresh Token (Renovar sessão)
   //OAuth Login (Verifrica se usuario ta registrado no BD, caso sim, fazer Login, caso n, registrar e dai fazer login)
-  app.delete(
-    "/api/session",
-    verifyAccessToken,
-    sessionController.handleDeleteSession
-  );
-  app.post(
-    "/api/session",
-    verifyAccessToken,
-    sessionController.handleCreateSession
-  );
+  app.delete("/api/session/:id", verifyAccessToken, handleDeleteSession);
+  app.post("/api/session", handleCreateSession);
   app.post("/api/session/oauth/google");
-  app.put(
-    "/api/session",
-    verifyAccessToken,
-    sessionController.handleRefreshSession
-  );
-  app.get(
-    "/api/session",
-    verifyAccessToken,
-    sessionController.handleVerifySession
-  );
+  app.put("/api/session", handleRefreshSession);
+  app.get("/api/session", verifyAccessToken, handleVerifySession);
 
   //User:
   //Create user (Register)
