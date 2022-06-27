@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
 import config from "config";
-import { findSession, findUserByEmail } from "../db/findResource";
-import { deleteSession } from "../db/deleteResource";
+import {
+  findSession,
+  findSessionByToken,
+  createSession,
+  deleteSession,
+} from "../db/session.database";
+import { findUser, findUserByEmail } from "../db/user.database";
 import { comparePassword } from "../utils/bcrypt";
-import { createSession } from "../db/createDatabase";
-import { createJWT } from "../utils/jwt";
+import { createJWT, verifyJWT } from "../utils/jwt";
 
 export async function handleCreateSession(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -91,6 +95,44 @@ export async function handleDeleteSession(req: Request, res: Response) {
 }
 
 export async function handleRefreshSession(req: Request, res: Response) {
+  const { refreshToken } = req.cookies;
+
+  if (!refreshToken) {
+    return res.sendStatus(400);
+  }
+
+  try {
+    const session = await findSessionByToken(refreshToken);
+
+    if (!session) {
+      return res.sendStatus(404);
+    }
+
+    const refreshTokenKey = config.get<string>("jwtRefreshTokenPrivateKey");
+    const decoded = await verifyJWT(refreshToken, refreshTokenKey);
+
+    if (!decoded) {
+      return res.sendStatus(401);
+    }
+
+    // @ts-ignore
+    const user = await findUser(decoded.userId);
+
+    if (!user) {
+      return res.sendStatus(500);
+    }
+
+    const accessTokenKey = config.get<string>("jwtAccessTokenPrivateKey");
+    const accessToken = createJWT(
+      { userId: user._id, role: user.role },
+      accessTokenKey,
+      "600s"
+    );
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+    });
+  } catch (error) {}
   res.send("Session/RefreshToken");
 }
 

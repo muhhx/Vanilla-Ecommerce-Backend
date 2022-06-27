@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import config from "config";
-import { createUser } from "../db/createDatabase";
+import { createUser, findUser, deleteUser } from "../db/user.database";
 import { encryptPassword } from "../utils/bcrypt";
 
-async function handleCreateUser(req: Request, res: Response) {
+export async function handleCreateUser(req: Request, res: Response) {
   const { name, email, password, passwordConfirmation } = req.body;
 
   try {
@@ -41,23 +41,48 @@ async function handleCreateUser(req: Request, res: Response) {
   }
 }
 
-async function handleDeleteUser(req: Request, res: Response) {
-  res.send("user/DeleteUser");
+export async function handleDeleteUser(req: Request, res: Response) {
+  // @ts-ignore
+  const jwtUser = req.user;
+  const { id } = req.params;
+
+  try {
+    const user = await findUser(id);
+
+    if (!user) {
+      return res.sendStatus(404);
+    }
+
+    if (jwtUser.userId !== String(user._id)) {
+      return res.sendStatus(401);
+    }
+
+    await deleteUser(id);
+
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 }
 
-async function handleUpdateUser(req: Request, res: Response) {
-  res.send("user/UpdateUser");
+export async function handleGetUser(req: Request, res: Response) {
+  // @ts-ignore
+  const jwtUser = req.user;
+  const { id } = req.params;
+
+  try {
+    const user = await findUser(id);
+
+    if (!user) {
+      return res.sendStatus(404);
+    }
+
+    if (jwtUser.userId !== String(user._id)) {
+      return res.sendStatus(401);
+    }
+
+    return res.status(200).json({ name: user.name, email: user.email });
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 }
-
-async function handleGetUser(req: Request, res: Response) {
-  res.send("user/GetUser");
-}
-
-const userController = {
-  handleCreateUser,
-  handleDeleteUser,
-  handleUpdateUser,
-  handleGetUser,
-};
-
-export default userController;

@@ -1,5 +1,4 @@
 import UserModel from "../models/user.model";
-import SessionModel from "../models/session.model";
 
 export const createUser = async (payload: {
   name: string;
@@ -15,12 +14,16 @@ export const createUser = async (payload: {
   return createdUser;
 };
 
-export const createSession = async (userId: string, refreshToken: string) => {    
-    const createdSession = await SessionModel.create({
-        userId,
-        refreshToken,
-    });
-    
-    return createdSession;
+export const findUser = (id: string) => {
+  return UserModel.findById({ _id: id });
 };
 
+export const findUserByEmail = async (email: string) => {
+  const user = UserModel.findOne({ email }).select("+password");
+
+  return user;
+};
+
+export const deleteUser = (id: string) => {
+  return UserModel.findOneAndDelete({ _id: id });
+};
