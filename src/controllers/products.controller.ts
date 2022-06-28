@@ -26,6 +26,14 @@ export async function handleCreateProduct(req: Request, res: Response) {
     categoryId,
     collectionId,
   } = req.body;
+
+  //Recieve product object
+  //Use files middleware to handle the images Errors
+  //Upload image to aws and return the key and the url for each image
+  //Save final product object with images in database
+  //return the product object to add to the redux products store
+
+  return res.send();
 }
 
 export async function handleDeleteProduct(req: Request, res: Response) {

@@ -1,10 +1,3 @@
-interface IProductOption {
-  rgb: string;
-  name: string;
-  sizes: string[];
-  images: string[];
-}
-
 export default interface IProduct {
   name: string;
   description: string;
@@ -13,7 +6,6 @@ export default interface IProduct {
   isAvailable: boolean;
   isNew: boolean;
   gender: ["all", "men", "women"];
-  options: IProductOption[];
   thumb: string;
   categoryId: string;
   collectionId: string;

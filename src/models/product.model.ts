@@ -10,17 +10,6 @@ const productSchema = new mongoose.Schema<IProduct>(
     isAvailable: { type: Boolean, required: true },
     isNew: { type: Boolean, default: true },
     gender: { type: [String], required: true, minLength: 1 },
-    options: {
-      type: [
-        {
-          rgb: { type: String, required: true },
-          name: { type: String, required: true },
-          sizes: { type: [String], required: true, minLength: 1 },
-          images: { type: [String], required: true, minLength: 1 },
-        },
-      ],
-      minLength: 1,
-    },
     thumb: { type: String, required: true },
     categoryId: { type: String, required: true },
     collectionId: { type: String, required: true },

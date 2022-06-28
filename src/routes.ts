@@ -18,6 +18,7 @@ import {
   handleGetProducts,
 } from "./controllers/products.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
+import fileUpload from "express-fileupload";
 
 const routes = (app: Express) => {
   //Session:
@@ -44,6 +45,16 @@ const routes = (app: Express) => {
   //Get user favorites (id of favorite posts = map through products state)
   //Create user favorite (add to the list)
   //Remove user favorite
+
+  //Option:
+  //Create new option (delete AWS images)
+  //Delete option (delete AWS images)
+  //Update option
+  //Get options/:productId (whenever you get a product, you need its options)
+  app.post("/api/option", verifyAccessToken, fileUpload);
+  app.delete("/api/option/:id", verifyAccessToken);
+  app.put("/api/option/:id", verifyAccessToken);
+  app.get("/api/option/:productId");
 
   //Product:
   //Register new product
