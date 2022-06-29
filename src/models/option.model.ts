@@ -4,7 +4,7 @@ import IOption from "../interfaces/option.interface";
 const optionSchema = new mongoose.Schema<IOption>(
   {
     productId: { type: String, required: true },
-    rgb: { type: String, required: true },
+    color: { type: String, required: true },
     name: { type: String, required: true },
     sizes: { type: [String], required: true, minLength: 1 },
     images: {

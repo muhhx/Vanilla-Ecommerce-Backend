@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 
 export async function handleCreateOption(req: Request, res: Response) {
-  const files = req.files;
-  const { productId, rgb, name, sizes } = req.body;
+  const { productId, rgb, name, sizes, images } = req.body;
 
   return res.send("Create Option");
 }

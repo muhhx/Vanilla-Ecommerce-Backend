@@ -20,11 +20,10 @@ export async function handleCreateProduct(req: Request, res: Response) {
     name,
     description,
     price,
-    discountPrice,
-    isNew,
     gender,
     categoryId,
     collectionId,
+    options,
   } = req.body;
 
   //Recieve product object
@@ -32,6 +31,14 @@ export async function handleCreateProduct(req: Request, res: Response) {
   //Upload image to aws and return the key and the url for each image
   //Save final product object with images in database
   //return the product object to add to the redux products store
+
+  /**
+   *  discountPrice will be null by defaultm but can be added after when editing the product
+   *  isAvailable, same. Default: true
+   *  isNewProduct, same. Default: true
+   *  thumb, same. Default: null
+   *  gender: "all" + genderInput
+   */
 
   return res.send();
 }

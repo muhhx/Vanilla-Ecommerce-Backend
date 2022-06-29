@@ -3,8 +3,9 @@ export default interface IProduct {
   description: string;
   price: number;
   discountPrice: null | number;
-  isAvailable: boolean;
-  isNew: boolean;
+  display: boolean; //Mostrar na store ou não. O usuário pode setar isso se nao quiser mostrar determinado produto na store
+  isSoldOut: boolean;
+  isNewProduct: boolean;
   gender: ["all", "men", "women"];
   thumb: string;
   categoryId: string;

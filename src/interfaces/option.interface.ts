@@ -5,7 +5,7 @@ interface IImage {
 
 export default interface IOption {
   productId: string;
-  rgb: string;
+  color: string;
   name: string;
   sizes: string[];
   images: IImage[];

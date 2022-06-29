@@ -17,8 +17,13 @@ import {
   handleGetProduct,
   handleGetProducts,
 } from "./controllers/products.controller";
+import {
+  handleUploadImages,
+  handleDeleteImages,
+} from "./controllers/images.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
-import fileUpload from "express-fileupload";
+import errorHandling from "./middlewares/errorHandling";
+import multerMiddleware from "./utils/multer";
 
 const routes = (app: Express) => {
   //Session:
@@ -37,6 +42,7 @@ const routes = (app: Express) => {
   //Create user (Register) V
   //Delete Acc
   //Get user data (private, only you can access your data) V
+  //
   app.post("/api/user", handleCreateUser);
   app.delete("/api/user/:id", verifyAccessToken, handleDeleteUser);
   app.get("/api/user/:id", verifyAccessToken, handleGetUser);
@@ -46,27 +52,34 @@ const routes = (app: Express) => {
   //Create user favorite (add to the list)
   //Remove user favorite
 
+  //Image:
+  //Add image (add to s3), returns image key and image url
+  //Delete image (delete from s3), returns deleted image?
+  app.post("/api/image", multerMiddleware, handleUploadImages);
+  app.delete("/api/image", verifyAccessToken, handleDeleteImages);
+
   //Option:
   //Create new option (delete AWS images)
   //Delete option (delete AWS images)
   //Update option
-  //Get options/:productId (whenever you get a product, you need its options)
-  app.post("/api/option", verifyAccessToken, fileUpload);
+  app.post("/api/option", verifyAccessToken);
   app.delete("/api/option/:id", verifyAccessToken);
   app.put("/api/option/:id", verifyAccessToken);
-  app.get("/api/option/:productId");
 
   //Product:
   //Register new product
   //Delete product
   //Update product
   //Get All products
-  //Get specific product
+  //Get specific product (get its options as well)
   app.get("/api/product", handleGetProducts);
   app.get("/api/product/:id", handleGetProduct);
   app.post("/api/product", verifyAccessToken, handleCreateProduct);
   app.put("/api/product", verifyAccessToken, handleUpdateProduct);
   app.delete("/api/product", verifyAccessToken, handleDeleteProduct);
+  //Opção: apenas pegar as options deste produto quando carregar a página do produto. De resto, não preciso das opções
+
+  //ADD S3
 
   //Collections
   //Add collection
@@ -89,6 +102,8 @@ const routes = (app: Express) => {
   //Get all products (query)
   //Get collections
   //Get categories
+
+  app.use(errorHandling);
 };
 
 export default routes;
