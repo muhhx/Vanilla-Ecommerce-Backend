@@ -1,6 +1,6 @@
 interface IImage {
-  key: string;
   url: string;
+  key: string;
 }
 
 export default interface IOption {

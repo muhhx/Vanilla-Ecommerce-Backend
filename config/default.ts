@@ -15,6 +15,4 @@ export default {
   jwtRefreshTokenPrivateKey: process.env.JWT_REFRESH_TOKEN_PRIVATE_KEY,
   awsBucketName: process.env.AWS_BUCKET_NAME,
   awsBucketRegion: process.env.AWS_BUCKET_REGION,
-  awsAccessKey: process.env.AWS_ACCESS_KEY,
-  awsPrivateKey: process.env.AWS_PRIVATE_KEY,
 };

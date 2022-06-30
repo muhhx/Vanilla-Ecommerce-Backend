@@ -56,7 +56,7 @@ const routes = (app: Express) => {
   //Add image (add to s3), returns image key and image url
   //Delete image (delete from s3), returns deleted image?
   app.post("/api/image", multerMiddleware, handleUploadImages);
-  app.delete("/api/image", verifyAccessToken, handleDeleteImages);
+  app.delete("/api/image/:id", handleDeleteImages);
 
   //Option:
   //Create new option (delete AWS images)

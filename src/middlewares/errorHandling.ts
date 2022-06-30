@@ -21,6 +21,7 @@ function errorHandling(
     }
   }
 
+  console.log(error);
   return res.sendStatus(500);
 }
 

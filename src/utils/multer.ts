@@ -2,18 +2,20 @@ import { Request } from "express";
 import multer, { FileFilterCallback } from "multer";
 import { v4 as uuidv4 } from "uuid";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    const { originalname } = file;
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "/uploads");
+//   },
+//   filename: (req, file, cb) => {
+//     const { originalname } = file;
 
-    const uniqueId = uuidv4();
+//     const uniqueId = uuidv4();
 
-    cb(null, `${uniqueId}-${originalname}`);
-  },
-});
+//     cb(null, `${uniqueId}-${originalname}`);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 const fileFilter = (
   req: Request,
@@ -34,7 +36,7 @@ const fileFilter = (
 const uploader = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 10 },
+  limits: { fileSize: 1000000 },
 });
 
 const multerMiddleware = uploader.array("File");
