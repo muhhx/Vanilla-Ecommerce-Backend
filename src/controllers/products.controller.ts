@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { findProducts } from "../db/products.database";
+import { findProducts, createProduct } from "../db/products.database";
 
 export async function handleGetProducts(req: Request, res: Response) {
   try {
@@ -16,15 +16,38 @@ export async function handleGetProduct(req: Request, res: Response) {
 }
 
 export async function handleCreateProduct(req: Request, res: Response) {
-  const {
-    name,
-    description,
-    price,
-    gender,
-    categoryId,
-    collectionId,
-    options,
-  } = req.body;
+  const { name, description, price, gender, categoryId, collectionId, thumb } =
+    req.body;
+
+  if (
+    !name ||
+    !description ||
+    !price ||
+    !gender ||
+    !thumb ||
+    !categoryId ||
+    !collectionId
+  ) {
+    return res
+      .status(400)
+      .json({ message: "Por favor, preencha todos os campos." });
+  }
+
+  try {
+    const product = await createProduct(
+      name,
+      description,
+      Number(price),
+      thumb,
+      gender,
+      categoryId,
+      collectionId
+    );
+
+    return res.status(201).json(product._id);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 
   //Recieve product object
   //Use files middleware to handle the images Errors
@@ -39,8 +62,6 @@ export async function handleCreateProduct(req: Request, res: Response) {
    *  thumb, same. Default: null
    *  gender: "all" + genderInput
    */
-
-  return res.send();
 }
 
 export async function handleDeleteProduct(req: Request, res: Response) {

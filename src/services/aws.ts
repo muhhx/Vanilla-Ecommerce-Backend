@@ -9,6 +9,7 @@ export const uploadImagesAws = async (files: Express.Multer.File[]) => {
 
   const params = files.map((file) => {
     return {
+      ContentType: file.mimetype,
       Bucket: awsBucketName,
       Key: `${uniqueId}-${file.originalname}`,
       Body: file.buffer,
