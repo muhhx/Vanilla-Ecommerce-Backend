@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import { findProducts, createProduct } from "../db/products.database";
+import {
+  findProducts,
+  createProduct,
+  deleteProduct,
+  updateProduct,
+} from "../db/products.database";
+import { IOption } from "../interfaces/product.interface";
 
 export async function handleGetProducts(req: Request, res: Response) {
   try {
@@ -16,15 +22,29 @@ export async function handleGetProduct(req: Request, res: Response) {
 }
 
 export async function handleCreateProduct(req: Request, res: Response) {
-  const { name, description, price, gender, categoryId, collectionId, thumb } =
-    req.body;
+  const {
+    name,
+    description,
+    price,
+    gender,
+    categoryId,
+    collectionId,
+    options,
+  } = req.body as {
+    name: string;
+    description: string;
+    price: string;
+    gender: string;
+    categoryId: string;
+    collectionId: string;
+    options: IOption[];
+  };
 
   if (
     !name ||
     !description ||
     !price ||
     !gender ||
-    !thumb ||
     !categoryId ||
     !collectionId
   ) {
@@ -33,41 +53,76 @@ export async function handleCreateProduct(req: Request, res: Response) {
       .json({ message: "Por favor, preencha todos os campos." });
   }
 
+  if (options.length === 0) {
+    return res
+      .status(400)
+      .json({ message: "Crie no mínimo uma opção para o produto." });
+  }
+
   try {
     const product = await createProduct(
       name,
       description,
       Number(price),
-      thumb,
       gender,
       categoryId,
-      collectionId
+      collectionId,
+      options
     );
 
-    return res.status(201).json(product._id);
+    return res.status(201).json(product);
   } catch (error) {
     return res.sendStatus(500);
   }
-
-  //Recieve product object
-  //Use files middleware to handle the images Errors
-  //Upload image to aws and return the key and the url for each image
-  //Save final product object with images in database
-  //return the product object to add to the redux products store
-
-  /**
-   *  discountPrice will be null by defaultm but can be added after when editing the product
-   *  isAvailable, same. Default: true
-   *  isNewProduct, same. Default: true
-   *  thumb, same. Default: null
-   *  gender: "all" + genderInput
-   */
 }
 
 export async function handleDeleteProduct(req: Request, res: Response) {
   const { id } = req.params;
+
+  try {
+    await deleteProduct(id);
+
+    return res.status(204);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 }
 
 export async function handleUpdateProduct(req: Request, res: Response) {
   const { id } = req.params;
+  const {
+    name,
+    description,
+    display,
+    isSoldOut,
+    isNewProduct,
+    price,
+    discountPrice,
+    hasDiscount,
+    gender,
+    categoryId,
+    collectionId,
+    thumb,
+  } = req.body;
+
+  try {
+    await updateProduct(id, {
+      name,
+      description,
+      display,
+      isSoldOut,
+      isNewProduct,
+      price,
+      discountPrice,
+      hasDiscount,
+      gender: !gender ? undefined : ["all", gender],
+      categoryId,
+      collectionId,
+      thumb,
+    });
+
+    return res.sendStatus(200);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 }

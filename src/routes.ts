@@ -17,18 +17,10 @@ import {
   handleGetProduct,
   handleGetProducts,
 } from "./controllers/products.controller";
-import {
-  handleUploadImages,
-  handleDeleteImages,
-} from "./controllers/images.controller";
+import { handleUploadImages } from "./controllers/images.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import errorHandling from "./middlewares/errorHandling";
 import multerMiddleware from "./utils/multer";
-import {
-  handleUpdateOption,
-  handleCreateOption,
-  handleDeleteOption,
-} from "./controllers/option.controller";
 
 const routes = (app: Express) => {
   //Session:
@@ -47,7 +39,6 @@ const routes = (app: Express) => {
   //Create user (Register) V
   //Delete Acc
   //Get user data (private, only you can access your data) V
-  //
   app.post("/api/user", handleCreateUser); //DONE
   app.delete("/api/user/:id", verifyAccessToken, handleDeleteUser);
   app.get("/api/user/:id", verifyAccessToken, handleGetUser); //DONE
@@ -66,37 +57,28 @@ const routes = (app: Express) => {
     multerMiddleware,
     handleUploadImages
   );
-  app.delete("/api/image/:id", verifyAccessToken, handleDeleteImages);
-
-  //Option:
-  //Create new option (delete AWS images)
-  //Delete option (delete AWS images)
-  //Update option
-  app.post("/api/option", handleCreateOption);
-  app.delete("/api/option/:id", handleDeleteOption);
-  app.put("/api/option/:id", handleUpdateOption);
 
   //Product:
   //Register new product
-  //Delete product
+  //Delete product (delete images from AWS + DELETE IMAGE FROM USERS FAVS)
   //Update product
   //Get All products
   //Get specific product (get its options as well)
   app.get("/api/product", handleGetProducts);
-  app.get("/api/product/:id", handleGetProduct);
-  app.post("/api/product", handleCreateProduct);
-  app.put("/api/product", verifyAccessToken, handleUpdateProduct);
-  app.delete("/api/product", verifyAccessToken, handleDeleteProduct);
-  //Opção: apenas pegar as options deste produto quando carregar a página do produto. De resto, não preciso das opções
+  app.get("/api/product/:id", handleGetProduct); //No front apenas filtrar o produto da lista
+  app.post("/api/product", verifyAccessToken, handleCreateProduct); //DONE
+  app.put("/api/product/:id", handleUpdateProduct);
+  app.delete("/api/product/:id", handleDeleteProduct); //DELETAR PRODUTO DO USER_FAVS
 
   //Collections
   //Add collection
-  //Remove collection
+  //Remove collection (pode deletar contanto que nao tenham produtos com esse id)
   //Update collection
 
   //Category
   //Add category
-  //Remove category
+  //Remove category (pode deletar contando que nao tenham produtos com esse id)
+  //Update category
 
   //Order
   //Create order (after payment)
