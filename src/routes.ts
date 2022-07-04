@@ -22,6 +22,12 @@ import {
   handleGetProduct,
   handleGetProducts,
 } from "./controllers/products.controller";
+import {
+  handleCreateCategory,
+  handleDeleteCategory,
+  handleGetCategories,
+  handleUpdateCategory,
+} from "./controllers/category.controller";
 import { handleUploadImages } from "./controllers/images.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import errorHandling from "./middlewares/errorHandling";
@@ -78,15 +84,20 @@ const routes = (app: Express) => {
   app.put("/api/product/:id", verifyAccessToken, handleUpdateProduct); //DONE
   app.delete("/api/product/:id", verifyAccessToken, handleDeleteProduct); //DELETAR PRODUTO DO USER_FAVS e AWS
 
-  //Collections
-  //Add collection
-  //Remove collection (pode deletar contanto que nao tenham produtos com esse id)
-  //Update collection
-
   //Category
   //Add category
   //Remove category (pode deletar contando que nao tenham produtos com esse id)
   //Update category
+  //Get all categories
+  app.post("/api/category", verifyAccessToken, handleCreateCategory);
+  app.delete("/api/category/:id", verifyAccessToken, handleDeleteCategory);
+  app.put("/api/category/:id", verifyAccessToken, handleUpdateCategory);
+  app.get("/api/category", handleGetCategories);
+
+  //Collections
+  //Add collection
+  //Remove collection (pode deletar contanto que nao tenham produtos com esse id)
+  //Update collection
 
   //Order
   //Create order (after payment)
