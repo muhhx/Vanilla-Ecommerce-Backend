@@ -3,6 +3,7 @@ import {
   createFavorite,
   deleteFavorite,
   getFavorites,
+  findFavorite,
 } from "../db/favorite.database";
 
 export async function handleCreateFavorite(req: Request, res: Response) {
@@ -10,6 +11,12 @@ export async function handleCreateFavorite(req: Request, res: Response) {
   const { productId } = req.body;
 
   try {
+    const exists = await findFavorite(id, productId);
+
+    if (exists) {
+      return res.sendStatus(200);
+    }
+
     const favorite = await createFavorite(id, productId);
 
     return res

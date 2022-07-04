@@ -45,18 +45,18 @@ const routes = (app: Express) => {
   //Delete Acc
   //Get user data (private, only you can access your data) V
   app.post("/api/user", handleCreateUser); //DONE
-  app.delete("/api/user/:id", verifyAccessToken, handleDeleteUser);
+  app.delete("/api/user/:id", verifyAccessToken, handleDeleteUser); //!!! DELETAR USER FAVS E PEDIDOS
   app.get("/api/user/:id", verifyAccessToken, handleGetUser); //DONE
 
-  //User_Favorites
+  //User_Favorites DONE
   //Get user favorites (id of favorite posts = map through products state)
-  //Create user favorite (add to the list) - ID PARAMS = USERID, ID BODY = PRODUCT ID
+  //Create user favorite (add to the list) -
   //Remove user favorite
-  app.post("/api/favorite/:id", handleCreateFavorite);
-  app.delete("/api/favorite/:id", handleDeleteFavorite);
-  app.get("/api/favorite/:id", handleGetFavorites);
+  app.post("/api/favorite/:id", verifyAccessToken, handleCreateFavorite); //DPONE
+  app.delete("/api/favorite/:id", verifyAccessToken, handleDeleteFavorite); //DONE
+  app.get("/api/favorite/:id", verifyAccessToken, handleGetFavorites); //DONE
 
-  //Image:
+  //Image: DONE
   //Add image (add to s3), returns image key and image url
   //Delete image (delete from s3), returns deleted image?
   app.post(
@@ -64,7 +64,7 @@ const routes = (app: Express) => {
     verifyAccessToken,
     multerMiddleware,
     handleUploadImages
-  );
+  ); //DONE
 
   //Product:
   //Register new product
@@ -93,13 +93,6 @@ const routes = (app: Express) => {
   //Cancel order
   //Get order /:id
   //Get all orders (ADMIN)
-
-  //Public APIS:
-  //Auth (Login, register)
-  //Get specific product
-  //Get all products (query)
-  //Get collections
-  //Get categories
 
   app.use(errorHandling);
 };

@@ -17,3 +17,7 @@ export const createFavorite = (userId: string, productId: string) => {
 export const deleteFavorite = (favoriteId: string) => {
   return FavoriteModel.findByIdAndDelete(favoriteId);
 };
+
+export const findFavorite = (userId: string, productId: string) => {
+  return FavoriteModel.findOne({ userId, productId });
+};
