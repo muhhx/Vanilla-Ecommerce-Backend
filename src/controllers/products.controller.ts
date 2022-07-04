@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   findProducts,
+  findProduct,
   createProduct,
   deleteProduct,
   updateProduct,
@@ -19,6 +20,18 @@ export async function handleGetProducts(req: Request, res: Response) {
 
 export async function handleGetProduct(req: Request, res: Response) {
   const { id } = req.params;
+
+  try {
+    const product = await findProduct(id);
+
+    if (!product) {
+      return res.sendStatus(404);
+    }
+
+    return res.status(200).json(product);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
 }
 
 export async function handleCreateProduct(req: Request, res: Response) {

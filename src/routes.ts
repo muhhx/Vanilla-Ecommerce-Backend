@@ -11,6 +11,11 @@ import {
   handleGetUser,
 } from "./controllers/user.controller";
 import {
+  handleCreateFavorite,
+  handleDeleteFavorite,
+  handleGetFavorites,
+} from "./controllers/favorite.controller";
+import {
   handleCreateProduct,
   handleDeleteProduct,
   handleUpdateProduct,
@@ -45,8 +50,11 @@ const routes = (app: Express) => {
 
   //User_Favorites
   //Get user favorites (id of favorite posts = map through products state)
-  //Create user favorite (add to the list)
+  //Create user favorite (add to the list) - ID PARAMS = USERID, ID BODY = PRODUCT ID
   //Remove user favorite
+  app.post("/api/favorite/:id", handleCreateFavorite);
+  app.delete("/api/favorite/:id", handleDeleteFavorite);
+  app.get("/api/favorite/:id", handleGetFavorites);
 
   //Image:
   //Add image (add to s3), returns image key and image url
@@ -64,11 +72,11 @@ const routes = (app: Express) => {
   //Update product
   //Get All products
   //Get specific product (get its options as well)
-  app.get("/api/product", handleGetProducts);
-  app.get("/api/product/:id", handleGetProduct); //No front apenas filtrar o produto da lista
+  app.get("/api/product", handleGetProducts); //DONE
+  app.get("/api/product/:id", handleGetProduct); //DONE
   app.post("/api/product", verifyAccessToken, handleCreateProduct); //DONE
-  app.put("/api/product/:id", handleUpdateProduct);
-  app.delete("/api/product/:id", handleDeleteProduct); //DELETAR PRODUTO DO USER_FAVS
+  app.put("/api/product/:id", verifyAccessToken, handleUpdateProduct); //DONE
+  app.delete("/api/product/:id", verifyAccessToken, handleDeleteProduct); //DELETAR PRODUTO DO USER_FAVS e AWS
 
   //Collections
   //Add collection

@@ -30,7 +30,7 @@ const productSchema = new mongoose.Schema<IProduct>(
     },
     discountPrice: { type: Number, default: 0 },
     hasDiscount: { type: Boolean, default: false },
-    display: { type: Boolean, default: false },
+    display: { type: Boolean, default: true },
     isSoldOut: { type: Boolean, default: false },
     isNewProduct: { type: Boolean, default: true },
     thumb: { type: String, required: true },

@@ -26,6 +26,10 @@ export const findProducts = () => {
   return ProductModel.find();
 };
 
+export const findProduct = (_id: string) => {
+  return ProductModel.findById(_id);
+};
+
 export const deleteProduct = (productId: string) => {
   return ProductModel.findByIdAndDelete(productId);
 };
