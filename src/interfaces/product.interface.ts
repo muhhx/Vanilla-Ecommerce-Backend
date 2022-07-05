@@ -27,3 +27,23 @@ export default interface IProduct {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IProductResponse {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  hasDiscount: boolean;
+  discountPrice: number;
+  display: boolean;
+  isSoldOut: boolean;
+  isNewProduct: boolean;
+  gender: ["all", "men", "women"];
+  thumb: string;
+  categoryId: string;
+  collectionId: string;
+  options: IOption[];
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}

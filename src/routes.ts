@@ -28,7 +28,10 @@ import {
   handleGetCategories,
   handleUpdateCategory,
 } from "./controllers/category.controller";
-import { handleUploadImages } from "./controllers/images.controller";
+import {
+  handleUploadImages,
+  handleCreateCheckout,
+} from "./controllers/services.controller";
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import errorHandling from "./middlewares/errorHandling";
 import multerMiddleware from "./utils/multer";
@@ -71,6 +74,7 @@ const routes = (app: Express) => {
     multerMiddleware,
     handleUploadImages
   ); //DONE
+  app.post("/api/checkout", verifyAccessToken, handleCreateCheckout);
 
   //Product:
   //Register new product

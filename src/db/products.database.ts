@@ -30,6 +30,10 @@ export const findProduct = (_id: string) => {
   return ProductModel.findById(_id);
 };
 
+export const findProductsByCartId = (cartIds: string[]) => {
+  return ProductModel.find({ _id: { $in: cartIds } });
+};
+
 export const findProductsByCategory = (categoryId: string) => {
   return ProductModel.find({ categoryId: { $eq: categoryId } });
 };

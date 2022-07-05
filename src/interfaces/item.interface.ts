@@ -1,6 +1,6 @@
 export default interface IItem {
   productId: string;
-  color: string;
+  colorIndex: number;
   size: string;
   quantity: number;
 }
