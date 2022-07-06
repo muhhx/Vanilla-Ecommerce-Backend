@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import config from "config";
+const config = require("config");
 import {
   findSession,
   findSessionByToken,
