@@ -1,6 +1,5 @@
 const dotenv = require("dotenv");
 const express = require("express");
-const config = require("config");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 import connectDatabase from "./utils/connectDatabase";

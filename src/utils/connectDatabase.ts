@@ -1,7 +1,6 @@
-import config from "config";
 import mongoose from "mongoose";
 
-const dbUri = config.get<string>("dbUri");
+const dbUri = process.env.MONGODB_URI as string;
 
 const connectDatabase = async () => {
   try {

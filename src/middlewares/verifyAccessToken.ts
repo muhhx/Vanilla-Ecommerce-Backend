@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import config from "config";
 import { verifyJWT } from "../utils/jwt";
 
 async function verifyAccessToken(
@@ -13,7 +12,7 @@ async function verifyAccessToken(
     return res.sendStatus(401);
   }
 
-  const accessTokenKey = config.get<string>("jwtAccessTokenPrivateKey");
+  const accessTokenKey = process.env.JWT_ACCESS_TOKEN_PRIVATE_KEY as string;
   const decoded = await verifyJWT(accessToken, accessTokenKey);
 
   if (!decoded) {

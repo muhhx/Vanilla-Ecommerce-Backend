@@ -1,10 +1,8 @@
 const bcrypt = require("bcrypt");
-import config from "config";
 
 export const encryptPassword = async (password: string) => {
   try {
-    const salt = config.get<string>("bcryptSalt");
-    const newPassword = await bcrypt.hash(password, salt);
+    const newPassword = await bcrypt.hash(password, 10);
 
     return newPassword;
   } catch (error) {

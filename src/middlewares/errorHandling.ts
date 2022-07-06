@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import multer from "multer";
+const multer = require("multer");
 
 function errorHandling(
   error: any,
