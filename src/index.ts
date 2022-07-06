@@ -8,6 +8,7 @@ import routes from "./routes";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
+const host = "localhost";
 const baseUrl = process.env.BASE_URL as string;
 
 const corsOptions = {
