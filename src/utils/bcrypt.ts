@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+const bcrypt = require("bcrypt");
 import config from "config";
 
 export const encryptPassword = async (password: string) => {

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import multer from "multer";
 
 function errorHandling(
-  error: Error,
+  error: any,
   req: Request,
   res: Response,
   next: NextFunction
