@@ -5,7 +5,7 @@ export default interface ICollection {
   author: string;
   cover: string[];
   lookbook: string[];
-  homePage: boolean; //se true, aparece na home
+  homePage: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

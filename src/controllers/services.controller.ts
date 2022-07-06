@@ -31,15 +31,12 @@ export async function handleCreateCheckout(req: Request, res: Response) {
   const { cart } = req.body as { cart: IItem[] };
 
   try {
-    //create an array with every cart productId items (so i can fetch fom db)
     const cartIds = cart.map((cartItem) => {
       return cartItem.productId;
     });
 
-    //Find all products within cartId
     const products = await findProductsByCartId(cartIds);
 
-    //Para cada item no carrinho, iterar os produtos, e se o produto for o mesmo, retornar um objeto com os 2
     let final = [];
     for (let i = 0; i < cart.length; i++) {
       for (let j = 0; j < products.length; j++) {
