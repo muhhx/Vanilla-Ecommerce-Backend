@@ -8,9 +8,10 @@ import routes from "./routes";
 const app = express();
 const port = config.get<number>("port");
 const host = config.get<string>("host");
+const baseUrl = config.get<string>("baseUrl");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: baseUrl,
   credentials: true,
 };
 

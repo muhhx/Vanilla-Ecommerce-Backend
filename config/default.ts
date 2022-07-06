@@ -4,7 +4,7 @@ dotenv.config();
 export default {
   host: "localhost",
   port: 4000,
-  baseUrl: "http://localhost:3000",
+  baseUrl: process.env.BASE_URL,
   bcryptSalt: 10,
   passwordRejex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/,
   emailRejex: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
