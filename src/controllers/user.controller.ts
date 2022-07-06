@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import config from "config";
 import { createUser, findUser, deleteUser } from "../db/user.database";
 import { encryptPassword } from "../utils/bcrypt";
 
@@ -11,12 +10,13 @@ export async function handleCreateUser(req: Request, res: Response) {
       return res.status(400).json({ message: "Preencha todos os campos." });
     }
 
-    const emailRejex = config.get<RegExp>("emailRejex");
+    const emailRejex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (!emailRejex.test(email)) {
       return res.status(400).json({ message: "Informe um email válido." });
     }
 
-    const passwordRejex = config.get<RegExp>("passwordRejex");
+    const passwordRejex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
     if (!passwordRejex.test(password)) {
       return res.status(400).json({ message: "Informe uma senha válida." });
     }

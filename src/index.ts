@@ -1,16 +1,16 @@
-import dotenv from "dotenv";
-import express from "express";
-import config from "config";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+const dotenv = require("dotenv");
+const express = require("express");
+const config = require("config");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 import connectDatabase from "./utils/connectDatabase";
 import routes from "./routes";
 
 dotenv.config();
 const app = express();
-const port = config.get<number>("port");
-const host = config.get<string>("host");
-const baseUrl = config.get<string>("baseUrl");
+const port = 4000;
+const host = "localhost";
+const baseUrl = process.env.BASE_URL as string;
 
 const corsOptions = {
   origin: baseUrl,
