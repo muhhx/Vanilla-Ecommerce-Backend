@@ -30,12 +30,6 @@ export async function handleCreateSession(req: Request, res: Response) {
       return res.status(404).json({ message: "Email ou senha inválidos. " });
     }
 
-    const session = await findSession(String(user._id));
-
-    if (session) {
-      return res.status(401).json({ message: "Usuário já está logado. " });
-    }
-
     const accessPrivateKey = config.get<string>("jwtAccessTokenPrivateKey");
     const accessToken = createJWT(
       { userId: user._id, role: user.role },

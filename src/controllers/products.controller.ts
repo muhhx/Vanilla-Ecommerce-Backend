@@ -93,9 +93,9 @@ export async function handleDeleteProduct(req: Request, res: Response) {
   const { id } = req.params;
 
   try {
-    const response = await deleteProduct(id);
+    await deleteProduct(id);
 
-    return res.status(204);
+    return res.sendStatus(204);
   } catch (error) {
     return res.sendStatus(500);
   }
