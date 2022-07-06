@@ -8,7 +8,6 @@ import routes from "./routes";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
-const host = "localhost";
 const baseUrl = process.env.BASE_URL as string;
 
 const corsOptions = {
@@ -23,7 +22,7 @@ app.use(express.json());
 
 const start = async () => {
   await connectDatabase();
-  app.listen(port, host, () => {
+  app.listen(port, () => {
     console.log(`App running on http://${host}:${port}...`);
   });
   routes(app);
