@@ -7,7 +7,7 @@ import routes from "./routes";
 
 dotenv.config();
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 const host = "localhost";
 const baseUrl = process.env.BASE_URL as string;
 
