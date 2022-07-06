@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-const config = require("config");
 import {
   findSession,
   findSessionByToken,
@@ -30,14 +29,15 @@ export async function handleCreateSession(req: Request, res: Response) {
       return res.status(404).json({ message: "Email ou senha inválidos. " });
     }
 
-    const accessPrivateKey = config.get<string>("jwtAccessTokenPrivateKey");
+    const accessPrivateKey = process.env.JWT_ACCESS_TOKEN_PRIVATE_KEY as string;
     const accessToken = createJWT(
       { userId: user._id, role: user.role },
       accessPrivateKey,
       "600s"
     );
 
-    const refreshPrivateKey = config.get<string>("jwtRefreshTokenPrivateKey");
+    const refreshPrivateKey = process.env
+      .JWT_REFRESH_TOKEN_PRIVATE_KEY as string;
     const refreshToken = createJWT(
       { userId: user._id, role: user.role },
       refreshPrivateKey,
@@ -102,7 +102,7 @@ export async function handleRefreshSession(req: Request, res: Response) {
       return res.sendStatus(404);
     }
 
-    const refreshTokenKey = config.get<string>("jwtRefreshTokenPrivateKey");
+    const refreshTokenKey = process.env.JWT_REFRESH_TOKEN_PRIVATE_KEY as string;
     const decoded = await verifyJWT(refreshToken, refreshTokenKey);
 
     if (!decoded) {
@@ -116,7 +116,7 @@ export async function handleRefreshSession(req: Request, res: Response) {
       return res.sendStatus(500);
     }
 
-    const accessTokenKey = config.get<string>("jwtAccessTokenPrivateKey");
+    const accessTokenKey = process.env.JWT_ACCESS_TOKEN_PRIVATE_KEY as string;
     const accessToken = createJWT(
       { userId: user._id, role: user.role },
       accessTokenKey,

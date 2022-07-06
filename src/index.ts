@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from "express";
 import config from "config";
 import cors from "cors";
@@ -5,6 +6,7 @@ import cookieParser from "cookie-parser";
 import connectDatabase from "./utils/connectDatabase";
 import routes from "./routes";
 
+dotenv.config();
 const app = express();
 const port = config.get<number>("port");
 const host = config.get<string>("host");
