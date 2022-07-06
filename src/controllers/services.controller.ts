@@ -50,7 +50,7 @@ export async function handleCreateCheckout(req: Request, res: Response) {
     }
 
     const session = await createSessionStripe(final);
-    return res.send(session);
+    return res.status(200).json(session);
   } catch (error) {
     return res.sendStatus(500);
   }

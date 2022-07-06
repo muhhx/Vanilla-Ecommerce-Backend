@@ -93,7 +93,7 @@ export async function handleDeleteProduct(req: Request, res: Response) {
   const { id } = req.params;
 
   try {
-    await deleteProduct(id);
+    const response = await deleteProduct(id);
 
     return res.status(204);
   } catch (error) {

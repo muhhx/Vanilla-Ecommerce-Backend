@@ -5,12 +5,9 @@ import IItem from "../interfaces/item.interface";
 
 const stripeSecretKey = config.get<string>("stripeSecretKey");
 
-const stripe = new Stripe(
-  "sk_test_51LI1eSA7ejTKC87iCu8DqBFlVOmfcfy0XrA8T3K5yfu7APNmhrNr34Ntv49fNc8rmYyZmxZ1GpDpbFq6AHNkDhPn00uvNrlPff",
-  {
-    apiVersion: "2020-08-27",
-  }
-);
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2020-08-27",
+});
 
 export const createSessionStripe = async (
   final: { product: IProduct; cart: IItem }[]
