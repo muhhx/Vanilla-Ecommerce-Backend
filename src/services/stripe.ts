@@ -1,9 +1,8 @@
 import Stripe from "stripe";
-import config from "config";
 import IProduct from "../interfaces/product.interface";
 import IItem from "../interfaces/item.interface";
 
-const stripeSecretKey = config.get<string>("stripeSecretKey");
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY as string;
 
 const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2020-08-27",
@@ -12,9 +11,7 @@ const stripe = new Stripe(stripeSecretKey, {
 export const createSessionStripe = async (
   final: { product: IProduct; cart: IItem }[]
 ) => {
-  const baseUrl = config.get<string>("baseUrl");
-  const stripeSuccessUrl = config.get<string>("stripeSuccessUrl");
-  const stripeCancelUrl = config.get<string>("stripeCancelUrl");
+  const baseUrl = process.env.BASE_URL as string;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -38,8 +35,8 @@ export const createSessionStripe = async (
           quantity: cart.quantity,
         };
       }),
-      success_url: `${baseUrl}/${stripeSuccessUrl}`,
-      cancel_url: `${baseUrl}/${stripeCancelUrl}`,
+      success_url: `${baseUrl}/success`,
+      cancel_url: `${baseUrl}/cart`,
     });
 
     return session;
