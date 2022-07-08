@@ -13,7 +13,7 @@ const baseUrl = process.env.BASE_URL as string;
 
 const corsOptions = {
   origin: baseUrl,
-  // credentials: true,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
