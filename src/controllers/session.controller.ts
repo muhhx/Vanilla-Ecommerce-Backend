@@ -48,10 +48,14 @@ export async function handleCreateSession(req: Request, res: Response) {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: "none",
+      secure: true,
     });
 
     return res.status(200).json({ userId: user._id, role: user.role });
@@ -75,10 +79,14 @@ export async function handleDeleteSession(req: Request, res: Response) {
     res.cookie("accessToken", "", {
       maxAge: 0,
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
     res.cookie("refreshToken", "", {
       maxAge: 0,
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
 
     return res.sendStatus(204);
@@ -125,6 +133,8 @@ export async function handleRefreshSession(req: Request, res: Response) {
 
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
   } catch (error) {}
   res.send("Session/RefreshToken");
