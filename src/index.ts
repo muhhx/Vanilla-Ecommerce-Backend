@@ -12,7 +12,7 @@ const host = "localhost";
 const baseUrl = process.env.BASE_URL as string;
 
 const corsOptions = {
-  origin: baseUrl,
+  origin: true,
   credentials: true,
 };
 
