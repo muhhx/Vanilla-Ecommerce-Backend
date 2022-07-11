@@ -35,6 +35,12 @@ import {
 import verifyAccessToken from "./middlewares/verifyAccessToken";
 import errorHandling from "./middlewares/errorHandling";
 import multerMiddleware from "./utils/multer";
+import {
+  handleDeleteCollection,
+  handleCreateCollection,
+  handleGetCollections,
+  handleUpdateCollection,
+} from "./controllers/collection.controller";
 
 const routes = (app: Express) => {
   app.post("/api/session", handleCreateSession);
@@ -60,6 +66,11 @@ const routes = (app: Express) => {
   app.delete("/api/category/:id", verifyAccessToken, handleDeleteCategory);
   app.put("/api/category/:id", verifyAccessToken, handleUpdateCategory);
   app.get("/api/category", handleGetCategories);
+
+  app.get("/api/collection", handleGetCollections);
+  app.post("/api/collection", verifyAccessToken, handleCreateCollection);
+  app.put("/api/collection/:id", verifyAccessToken, handleUpdateCollection);
+  app.delete("/api/collection/:id", verifyAccessToken, handleDeleteCollection);
 
   app.post(
     "/api/image",

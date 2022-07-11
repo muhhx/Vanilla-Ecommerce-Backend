@@ -10,6 +10,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 const host = "localhost";
 const baseUrl = process.env.BASE_URL as string;
+const dbUri = process.env.MONGODB_URI as string;
 
 const corsOptions = {
   origin: true,
@@ -22,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const start = async () => {
-  await connectDatabase();
+  await connectDatabase(dbUri);
   app.listen(port, () => {
     console.log(`App running on http://${host}:${port}...`);
   });
