@@ -23,7 +23,7 @@ const fileFilter = (
 const uploader = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 1000000 },
+  limits: { fileSize: 3000000 },
 });
 
 const multerMiddleware = uploader.array("File");
