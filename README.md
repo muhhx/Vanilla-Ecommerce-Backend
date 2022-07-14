@@ -21,15 +21,14 @@ Send me an email: muriloue@gmail.com
 
 ## Built with (server)
 - [Typescript](https://www.typescriptlang.org/) | More transparency and control over the code
-- [React](https://reactjs.org/docs/getting-started.html) | React functional components
-- [React-Router-Dom v6](https://reactrouter.com/docs/en/v6/getting-started/overview) | Router
-- [React Context API](https://reactjs.org/docs/context.html) | Manage simple states
-- [React-Loader-Spinner](https://www.npmjs.com/package/react-loader-spinner) | Simple library for the UI Spinner component
-- [Redux Toolkit](https://redux-toolkit.js.org/) | Main state manager
-- [Redux Thunk](https://redux.js.org/usage/writing-logic-thunks) | Handle state change due to async code
-- [Styled-Components](https://styled-components.com/) | Styling
-- [Axios](https://axios-http.com/docs/intro) | HTTP requests
-- [Axios (Interceptors)](https://axios-http.com/docs/interceptors) | 403 handler for expired Access Tokens, generating new ones through the Refresh Token route
+- [Node](https://nodejs.org/en/) | Build the server
+- [Express](https://expressjs.com/) | Framework for Node
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) | Encrypt data
+- [UUID](https://www.npmjs.com/package/uuid) | Generate unique ids
+- [Dotenv](https://www.npmjs.com/package/dotenv) | Handle Environment variables
+- [MongoDB](https://www.mongodb.com/) | Cloud Database
+- [Mongoose](https://mongoosejs.com/docs/index.html) | Model the application
+- [Multer](https://www.npmjs.com/package/multer) | File upload
 
 ## Support tools
 - [AMAZON s3](https://aws.amazon.com/s3/) | Storage service
