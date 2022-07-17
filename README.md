@@ -26,7 +26,7 @@ Send me an email: muriloue@gmail.com
 </h4>
 
 ## Public API endpoints
-> BASE_URL = https://vanilla-ecommerce-backend.herokuapp.com/api
+> BASE_URL = vanilla-ecommerce-backend.herokuapp.com/api
 
 - **Get all products**
 > http://BASE_URL/api/product
@@ -56,8 +56,6 @@ Send me an email: muriloue@gmail.com
 | -------- | :----: | :----: | :--------: | ---------------- | --------------------------- |
 | /collection | GET    | -      | -          | **Code:** 200 - OK</br> **Content:** {</br>[[Collection](#collection)]</br>}          | 500 - INTERNAL SERVER ERROR |
 
-## Authentication
-- Talk about axios interceptors also
 
 ## Models
 ##### Image
