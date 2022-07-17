@@ -26,7 +26,7 @@ Send me an email: muriloue@gmail.com
 </h4>
 
 ## Public API endpoints
-> BASE_URL = https://vanilla-ecommerce-backend.herokuapp.com/
+> BASE_URL = https://vanilla-ecommerce-backend.herokuapp.com/api
 
 - **Get all products**
 > http://BASE_URL/api/product
